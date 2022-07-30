@@ -1,13 +1,14 @@
-ggplot(# Fonte dos Dados
+airquality <- datasets::airquality
+
+ggplot(#Fonte dos Dados
         data = airquality,
         # Disposição das variáveis de interesse
         mapping = aes(x = Day,
                       y = Temp)) +
         # Seleção de geometria (de Colunas)
-        geom_col(size =1 ,
-                 # Seleção de variáveis
-                 aes(fill = Wind)) +
-        # Escalas
+        geom_col(# Seleção de variáveis
+                mapping = aes(fill = Wind)) +
+        #  Escalas
         #  Eixo X
         scale_x_continuous(breaks = 1:31) +
         #  Eixo Y
@@ -15,7 +16,7 @@ ggplot(# Fonte dos Dados
         #  Cores
         scale_fill_gradient(low = "white", high = "black")+
         # Sistema de coordenadas
-        coord_cartesian()+
+        coord_cartesian() +
         # Facetas
         facet_wrap(~Month, ncol = 1)+
         # Rótulos
@@ -28,7 +29,9 @@ ggplot(# Fonte dos Dados
         # Tema de fundo
         theme_bw() +
         #Alterar detalhes
-        theme(axis.title = element_text(size = 15),
-              strip.text = element_text(size = 15),
+        theme(axis.title = element_text(size = 20),
+              axis.text = element_text(size = 12),
+              strip.text = element_text(size = 20),
               legend.position = "top",
-              plot.title = element_text(hjust = 0.5, size = 20))
+              legend.title = element_text(size= 20),
+              plot.title = element_text(hjust = 0.5, size = 30))
