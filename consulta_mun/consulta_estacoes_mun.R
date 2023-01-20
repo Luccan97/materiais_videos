@@ -56,7 +56,7 @@ consulta.mun <- function(mun, n){
                 # País
                 country = "Brazil",
                 date = Sys.Date(),
-                add_map = TRUE, 
+                add_map = F, 
                 # Longitude, Latitude do ponto de interesse
                 point = c(lon, lat),
                 # Número de Estações que deseja localizar
@@ -66,4 +66,8 @@ consulta.mun <- function(mun, n){
         
 }
 
-consulta.mun(mun = "Rio De Janeiro", n = 10)
+df <- consulta.mun(mun = "Rio De Janeiro", n = 10)
+
+# Dados
+example <- meteo_ogimet(interval = 'hourly',
+                        station = df[1,1])
