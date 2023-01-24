@@ -16,10 +16,9 @@
 # Leaflet extras
 
 # Funcionalidades extras 
-
+install.packages('fontawesome')library(fontawesome)
 # Instalar pacote
-install.packages('leaflet')
-install.packages('leafletextras')
+
 
 library(leaflet)
 
@@ -32,7 +31,7 @@ library(sf)
 library(tidyverse)
 
 # Pacote para baixar dados espaciais do Brasil
-devtools::install_github("ipeaGIT/geobr", subdir = "r-package")
+# devtools::install_github("ipeaGIT/geobr", subdir = "r-package")
 
 library(geobr)
 
@@ -41,7 +40,7 @@ urban <- geobr::read_urban_concentrations()
 
 # Pontos
 health_units <- geobr::read_health_facilities() %>%
-  dplyr::filter(abbrev_state == "SC")
+  dplyr::filter(code_muni == 352030)
 
 # Arquivo de exemplo que usarei = Shapefile com os poligonos das UF do Brasil
 
@@ -49,17 +48,16 @@ health_units <- geobr::read_health_facilities() %>%
 # Renderizar um Basemap
 
 # Map1
-library(leaflet)
+
 
 leaflet() %>%
   
   addProviderTiles(providers$OpenStreetMap) %>%
-  # Adicionar poligonos
-  addPolygons(data = urban, 
-              color = "red",
-              weight = 1) %>%
-  # Adicionar pontos
-  addCircles(data = health_units, 
-             radius = 30, 
-             stroke = F) 
+  # Adicionar pontos estabs de Saúde
+  addMarkers(data = health_units,
+             icon = iconAwesome("fa-hospital") ) %>%
+  addMeasure(primaryLengthUnit = "meters", 
+             primaryAreaUnit = "sqmeters", 
+             activeColor = "blue", 
+             completedColor = "red")
 
